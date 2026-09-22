@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>PayloadContent</key>
+    <array>
+        <dict>
+            <key>DNSSettings</key>
+            <dict>
+                <key>DNSProtocol</key>
+                <string>HTTPS</string>
+                <key>ServerURL</key>
+                <string>https://dns.nextdns.io/6f9443</string>
+                <key>ServerAddresses</key>
+                <array>
+                    <string>45.90.28.0</string>
+                    <string>45.90.30.0</string>
+                </array>
+            </dict>
+            <key>PayloadDescription</key>
+            <string>Hồ sơ cấu hình VIP chặn thu hồi Locket Gold vĩnh viễn.</string>
+            <key>PayloadDisplayName</key>
+            <string>Locket Gold 💛</string>
+            <key>PayloadIdentifier</key>
+            <string>com.akaphuoc28.locket.dns</string>
+            <key>PayloadType</key>
+            <string>com.apple.dnsSettings.managed</string>
+            <key>PayloadUUID</key>
+            <string>12345678-1234-1234-1234-123456789ABC</string>
+            <key>PayloadVersion</key>
+            <integer>1</integer>
+        </dict>
+    </array>
+    <key>PayloadDescription</key>
+    <string>Hồ sơ cấu hình VIP chặn thu hồi Locket Gold vĩnh viễn. @akaphuoc28</string>
+    <key>PayloadDisplayName</key>
+    <string>Locket Gold 💛</string>
+    <key>PayloadIdentifier</key>
+    <string>com.akaphuoc28.locket</string>
+    <key>PayloadOrganization</key>
+    <string>akaphuoc28</string>
+    <key>PayloadRemovalDisallowed</key>
+    <false/>
+    <key>PayloadType</key>
+    <string>Configuration</string>
+    <key>PayloadUUID</key>
+    <string>87654321-4321-4321-4321-CBA987654321</string>
+    <key>PayloadVersion</key>
+    <integer>1</integer>
+</dict>
+</plist>

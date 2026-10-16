@@ -2,7 +2,6 @@
 // Locket Remote Config Rewrite
 // Endpoint: firebaseremoteconfig.googleapis.com
 // Dùng cho: Loon / Quantumult X / Surge / Shadowrocket
-// Tác giả: @duyvinh09
 // ============================================================
 
 var ua = $request.headers["User-Agent"] || $request.headers["user-agent"] || "";
@@ -54,9 +53,9 @@ if (ua.includes("Locket")) {
             title: "Lên Locket Gold rồi đó 😎",
             feature_set: [
                 {
-                    title: "Nhớ follow kênh tiktok @duyvinh.09 ✨",
-                    body: "Một follow của bạn, một niềm vui của mình 💛",
-                    imageURL: "https://i.ibb.co/gZ6HkyWT/L-n-Gold-R-i.png"
+                    title: "Phước nó sống thế đấy",
+                    body: "28-12-2004",
+                    imageURL: "https://i.ibb.co/SwvxCVK2/image.png"
                 }
             ],
             primary_button_title: "Xong",
@@ -68,8 +67,8 @@ if (ua.includes("Locket")) {
         android_subscribe_gold_button_enabled: "false",
         profile_badge_visible: "true",
         lunar_new_year_app_icon_enabled: "true",
-        settings_instagram_url: "https://www.instagram.com/dvinh.09/",
-        settings_tiktok_url: "https://tiktok.com/@duyvinh.09"
+        settings_instagram_url: "https://www.instagram.com/aka_phw2812/",
+        settings__url: "https://www.facebook.com/nvp2812"
     });
 
     // ============================================================
@@ -572,15 +571,15 @@ if (ua.includes("Locket")) {
                 ]
             },
             {
-                section: "🎨 Decorative by Duy Vinh",
+                section: "🎨 Decorative by akaphuoc28",
                 items: [
                     {
-                        overlay_id: "caption:duyvinh09",
+                        overlay_id: "caption:akaphuoc28",
                         source: "remote",
                         caption: {
                             background: { colors: ["#B8E7FF", "#A8F5D0", "#DCCBFF"] },
                             max_lines: 1,
-                            text: "💻 duyvinh09",
+                            text: "💻 akaphuoc28",
                             text_color: "#183153",
                             type: "static_content"
                         }

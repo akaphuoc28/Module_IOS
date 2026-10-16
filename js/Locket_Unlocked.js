@@ -68,7 +68,7 @@ if (ua.includes("Locket")) {
         profile_badge_visible: "true",
         lunar_new_year_app_icon_enabled: "true",
         settings_instagram_url: "https://www.instagram.com/aka_phw2812/",
-        settings__url: "https://www.facebook.com/nvp2812"
+        settings_facebook_url: "https://www.facebook.com/nvp2812"
     });
 
     // ============================================================

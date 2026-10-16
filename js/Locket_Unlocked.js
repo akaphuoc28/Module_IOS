@@ -12,6 +12,70 @@ if (ua.includes("Locket")) {
     obj.entries = obj.entries || {};
 
     // ============================================================
+    // XỬ LÝ THỜI GIAN ĐỘNG
+    // ============================================================
+    var now = new Date();
+    var hour = now.getHours();
+    var day = now.getDay();
+    var date = now.getDate();
+    var month = now.getMonth() + 1;
+    var year = now.getFullYear();
+
+    var greetingTime;
+    if (hour >= 5 && hour < 11) greetingTime = "Chào buổi sáng ☀️";
+    else if (hour >= 11 && hour < 14) greetingTime = "Chào buổi trưa 🌤️";
+    else if (hour >= 14 && hour < 18) greetingTime = "Chào buổi chiều 🌇";
+    else if (hour >= 18 && hour < 22) greetingTime = "Chào buổi tối 🌆";
+    else greetingTime = "Khuya rồi ngủ đi 🌙";
+
+    var greetingDay;
+    if (day === 0) greetingDay = "Chủ nhật chill nhé 🛋️";
+    else if (day === 1) greetingDay = "Thứ 2 đầu tuần cố lên 💪";
+    else if (day === 6) greetingDay = "Thứ 7 vui vẻ nha 🎉";
+    else greetingDay = "Ngày thường nhưng vẫn chất 😎";
+
+    var greetingSeason;
+    if (month >= 3 && month <= 5) greetingSeason = "Mùa xuân ấm áp 🌸";
+    else if (month >= 6 && month <= 8) greetingSeason = "Mùa hè rực rỡ ☀️";
+    else if (month >= 9 && month <= 11) greetingSeason = "Mùa thu lá vàng 🍂";
+    else greetingSeason = "Mùa đông lạnh giá ❄️";
+
+    var events = [
+        { name: "Tết Nguyên Đán", date: new Date(year + 1, 0, 29), emoji: "🧧" },
+        { name: "Valentine", date: new Date(year, 1, 14), emoji: "💝" },
+        { name: "Quốc tế Phụ nữ", date: new Date(year, 2, 8), emoji: "🌹" },
+        { name: "Trung Thu", date: new Date(year, 8, 25), emoji: "🏮" },
+        { name: "Giáng Sinh", date: new Date(year, 11, 25), emoji: "🎄" },
+        { name: "Sinh nhật Phước", date: new Date(year, 11, 28), emoji: "🎂" },
+        { name: "Năm mới", date: new Date(year + 1, 0, 1), emoji: "🎆" }
+    ];
+
+    var eventCountdown = "";
+    var minDays = 9999;
+    events.forEach(function(ev) {
+        var diff = Math.ceil((ev.date - now) / (1000 * 60 * 60 * 24));
+        if (diff >= 0 && diff < minDays) {
+            minDays = diff;
+            eventCountdown = ev.emoji + " Còn " + diff + " ngày đến " + ev.name;
+        }
+    });
+
+    var specialDayCaption = "";
+    if (month === 12 && date === 28) {
+        specialDayCaption = "🎂 Chúc mừng sinh nhật Phước! 🎉";
+    } else if (month === 2 && date === 14) {
+        specialDayCaption = "💝 Valentine vui vẻ nhé!";
+    } else if (month === 1 && date === 1) {
+        specialDayCaption = "🎆 Chúc mừng năm mới!";
+    } else if (month === 12 && date === 25) {
+        specialDayCaption = "🎄 Giáng sinh an lành!";
+    } else if (month === 9 && date === 2) {
+        specialDayCaption = "🇻🇳 Quốc khánh Việt Nam!";
+    } else if (month === 3 && date === 8) {
+        specialDayCaption = "🌹 Chúc mừng ngày Quốc tế Phụ nữ!";
+    }
+
+    // ============================================================
     // 1. CẤU HÌNH GOLD, FEATURE GATES & PAYWALL
     // ============================================================
     Object.assign(obj.entries, {
@@ -287,7 +351,6 @@ if (ua.includes("Locket")) {
         widget_sync_token_reload_mode: "clearTokenNever",
         widget_frame_event: JSON.stringify({
             uid: "midautumn_2026",
-            // url: "https://i.ibb.co/1Yt1Dzzy/Shin-chan-1.png",
             url: "https://i.ibb.co/RTm5P1n9/kitty-1.png",
             use_local_time_zone: true,
             placement: "below",
@@ -380,6 +443,71 @@ if (ua.includes("Locket")) {
             "good_morning", "goodnight", "ootd", "miss_you", "custom", "phunu_2010", "halloween_2026"
         ]),
         overlay_items: JSON.stringify([
+            {
+                section: "🕐 Theo thời gian",
+                items: [
+                    {
+                        overlay_id: "caption:greeting_time",
+                        source: "remote",
+                        caption: {
+                            background: { colors: ["#FFD700", "#FF8C00"] },
+                            icon: { data: "⏰", type: "emoji" },
+                            max_lines: 1,
+                            text: greetingTime,
+                            text_color: "#FFFFFFE6",
+                            type: "static_content"
+                        }
+                    },
+                    {
+                        overlay_id: "caption:greeting_day",
+                        source: "remote",
+                        caption: {
+                            background: { colors: ["#4CAF50", "#2E7D32"] },
+                            icon: { data: "📅", type: "emoji" },
+                            max_lines: 1,
+                            text: greetingDay,
+                            text_color: "#FFFFFFE6",
+                            type: "static_content"
+                        }
+                    },
+                    {
+                        overlay_id: "caption:greeting_season",
+                        source: "remote",
+                        caption: {
+                            background: { colors: ["#FFAFBD", "#FFC3A0"] },
+                            icon: { data: "🌿", type: "emoji" },
+                            max_lines: 1,
+                            text: greetingSeason,
+                            text_color: "#000000E6",
+                            type: "static_content"
+                        }
+                    },
+                    {
+                        overlay_id: "caption:event_countdown",
+                        source: "remote",
+                        caption: {
+                            background: { colors: ["#8E2DE2", "#4A00E0"] },
+                            icon: { data: "🎯", type: "emoji" },
+                            max_lines: 1,
+                            text: eventCountdown || "Sắp có sự kiện rồi! ✨",
+                            text_color: "#FFFFFFE6",
+                            type: "static_content"
+                        }
+                    },
+                    {
+                        overlay_id: "caption:special_day",
+                        source: "remote",
+                        caption: {
+                            background: { colors: ["#FF0062", "#FF783F"] },
+                            icon: { data: "🎊", type: "emoji" },
+                            max_lines: 1,
+                            text: specialDayCaption || "Hôm nay là ngày đẹp trời 🌤️",
+                            text_color: "#FFFFFFE6",
+                            type: "static_content"
+                        }
+                    }
+                ]
+            },
             {
                 section: "🎨 General",
                 items: [
@@ -1065,7 +1193,7 @@ if (ua.includes("Locket")) {
                             text_color: "#FFFFFF",
                             type: "static_content"
                         }
-                    },
+                    }
                 ]
             },
             {
@@ -1312,14 +1440,14 @@ if (ua.includes("Locket")) {
                         }
                     },
                     {
-                        overlay_id: "caption:ua_alo",
+                        overlay_id: "caption:ua_alo_2",
                         source: "remote",
                         caption: {
-                            background: { colors: ["#8E2DE2", "#4A00E0"] },
-                            icon: { data: "📞", type: "emoji" },
+                            background: { colors: ["#9C27B0", "#7B1FA2"] },
+                            icon: { data: "❓", type: "emoji" },
                             max_lines: 1,
-                            text: "Ủa alo",
-                            text_color: "#FFFFFF",
+                            text: "Ủa alo?",
+                            text_color: "#FFFFFFE6",
                             type: "static_content"
                         }
                     },
@@ -1451,18 +1579,6 @@ if (ua.includes("Locket")) {
                             icon: { data: "⚡", type: "emoji" },
                             max_lines: 1,
                             text: "Đủ bá khí chưa",
-                            text_color: "#FFFFFFE6",
-                            type: "static_content"
-                        }
-                    },
-                    {
-                        overlay_id: "caption:ua_alo",
-                        source: "remote",
-                        caption: {
-                            background: { colors: ["#9C27B0", "#7B1FA2"] },
-                            icon: { data: "❓", type: "emoji" },
-                            max_lines: 1,
-                            text: "Ủa alo?",
                             text_color: "#FFFFFFE6",
                             type: "static_content"
                         }

@@ -726,6 +726,21 @@ if (ua.includes("Locket")) {
                         }
                     },
                     {
+                        overlay_id: "caption:toi_yeu_vn",
+                        source: "remote",
+                        caption: {
+                            // Thay link ảnh nền cờ đỏ/cờ Tổ quốc của bạn vào đây
+                            background: { 
+                            imageURL: "https://i.ibb.co/1t92SQbJ/download-1.jpg" 
+                        }, 
+                            icon: { data: "🩷", type: "emoji" }, // Icon trái tim
+                            max_lines: 1,
+                            text: "Tôi yêu Việt Nam",
+                            text_color: "#FFEB3B", // Màu vàng
+                            type: "static_content"
+                        }
+                    },
+                    {
                         overlay_id: "caption:cu",
                         source: "remote",
                         caption: {

@@ -531,7 +531,7 @@ if (ua.includes("Locket")) {
                         alt_text: "Tôi yêu Việt Nam", 
                         caption: { 
                             background: { 
-                                image: { type: "image", data: "https://i.ibb.co/1t92SQbJ/download-1.jpg", source: "url" }, 
+                                image: { type: "image", data: "https://i.ibb.co/1t92SQbJ/download-1.jpghttps://i.ibb.co/gM3RXPG8/download-1.png", source: "url" }, 
                                 colors: ["#DA251D", "#DA251D"] 
                             }, 
                             icon: { type: "image", data: "https://storage.googleapis.com/locket-public/journal_calendar_assets/holiday_indicators/valentines_indicator%403x.png", source: "url" }, 

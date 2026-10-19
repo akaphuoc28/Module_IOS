@@ -114,7 +114,7 @@ if (ua.includes("Locket")) {
             tag: "LOCKET GOLD",
             tag_gradient: true,
             tag_style: "gold_gradient",
-            title: "Lên Locket Gold rồi đó 😎",
+            title: "Locket Gold về tới bản rồi đó 😎",
             feature_set: [
                 {
                     title: "Phước nó sống thế đấy",

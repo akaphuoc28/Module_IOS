@@ -1,5 +1,5 @@
 // ============================================================
-// Locket Remote Config Rewrite (PRO MAX - Full Option)
+// Locket Remote Config Rewrite (PRO MAX - Full Option + TikTok Trend)
 // Endpoint: firebaseremoteconfig.googleapis.com
 // Base by @duyvinh09 & @akaphuoc28 | Upgrade by YOU
 // ============================================================
@@ -24,6 +24,27 @@ if (ua.includes("Locket")) {
     var dailySeed = (year * 12 + month) * 31 + date;
     var randomSeed = Math.floor(Math.random() * 1000);
 
+    // ============================================================
+    // KHO ẢNH WIDGET XOAY VÒNG (11 ẢNH CỦA MÀY)
+    // ============================================================
+    var widgetImages = [
+        "https://i.ibb.co/20NRRD9Y/0ebdf77d-cf17-4e19-977d-302b3f3abd9b.png",
+        "https://i.ibb.co/dst1ZyNN/01ddf5e8-1867-4911-b279-2079d8837fa5.png",
+        "https://i.ibb.co/nqRQ098H/3b806fb9-e010-42a2-97a0-0f0a4217abed.png",
+        "https://i.ibb.co/BHcj9bMC/07e1243c-d11b-4edc-8d31-123969119a3c.png",
+        "https://i.ibb.co/KcBCXYVb/8c0df10c-a440-4f27-9b36-5a98b13ab135.png",
+        "https://i.ibb.co/LDxbwnPQ/9d4c9fe9-0130-4357-9d3d-16115fa5a7ae.png",
+        "https://i.ibb.co/jkyM8zv8/87b6883a-2924-42aa-9e16-8cd7ea1abc60.png",
+        "https://i.ibb.co/yThHpLg/90a123bd-dbd6-4ac7-b388-c7a27454c2bc.png",
+        "https://i.ibb.co/ZpqQqZGy/95648cad-75fc-4a8c-9d6b-79a7c665d7fb.png",
+        "https://i.ibb.co/QFL12VDc/5839848b-a8e6-48d1-85fd-8e59a23dd77b.png",
+        "https://i.ibb.co/gZvZbTbx/5d068968-72b2-4045-b663-ada7e5dd4411-1.png"
+    ];
+
+    // Tự động chọn 1 ảnh dựa theo ngày (hôm nay ảnh 1, mai ảnh 2...)
+    var todayWidgetIndex = dailySeed % widgetImages.length; 
+    var selectedWidgetUrl = widgetImages[todayWidgetIndex];
+
     // --- CHÀO NGÀY MỚI TỰ ĐỘNG ---
     var greetingTime = (hour >= 5 && hour < 11) ? "Chào buổi sáng ☀️" : (hour >= 11 && hour < 14) ? "Chào buổi trưa 🌤️" : (hour >= 14 && hour < 18) ? "Chào buổi chiều 🌇" : (hour >= 18 && hour < 22) ? "Chào buổi tối 🌆" : "Khuya rồi ngủ đi 🌙";
     
@@ -34,10 +55,10 @@ if (ua.includes("Locket")) {
     // --- ĐẾM NGƯỢC SỰ KIỆN ---
     var events = [
         { name: "Tết Dương", date: new Date(year + 1, 0, 1), emoji: "🎆" },
-        { name: "Valentine", date: new Date(year, 1, 14), emoji: "💝" },
-        { name: "8/3", date: new Date(year, 2, 8), emoji: "🌹" },
-        { name: "Noel", date: new Date(year, 11, 25), emoji: "🎄" },
-        { name: "Sinh nhật Phước", date: new Date(year, 11, 28), emoji: "🎂" }
+        { name: "Valentine", date: new Date((year + "-02-14")), emoji: "💝" },
+        { name: "8/3", date: new Date((year + "-03-08")), emoji: "🌹" },
+        { name: "Noel", date: new Date((year + "-12-25")), emoji: "🎄" },
+        { name: "Sinh nhật Phước", date: new Date((year + "-12-28")), emoji: "🎂" }
     ];
     var eventCountdown = "", minDays = 9999;
     events.forEach(function(ev) {
@@ -149,7 +170,7 @@ if (ua.includes("Locket")) {
     else if (month === 12 && date === 24) { holidayCaption = "🎅 Đêm Giáng sinh an lành!"; holidayColor1 = "#2FA85F"; holidayColor2 = "#176B3A"; } 
     else if (month === 12 && date === 25) { holidayCaption = "🎄 Chúc mừng Giáng sinh!"; holidayColor1 = "#2FA85F"; holidayColor2 = "#176B3A"; }
 
-    // --- ĐẾM NGƯỢC TẾT NGUYÊN ĐÁN và TRUNG THU ---
+    // --- ĐẾM NGƯỢC TẾT NGUYÊN ĐÁN & TRUNG THU ---
     var lunarDates = {
         2024: { tet: "2024-02-10", trungthu: "2024-09-17" },
         2025: { tet: "2025-01-29", trungthu: "2025-10-06" },
@@ -160,12 +181,10 @@ if (ua.includes("Locket")) {
         2030: { tet: "2030-02-03", trungthu: "2030-09-12" }
     };
 
-    // Lấy ngày năm nay
     var dataThisYear = lunarDates[year] || lunarDates[2025];
     var tetString = dataThisYear.tet;
     var trungThuString = dataThisYear.trungthu;
 
-    // Tính Tết
     var tetDateObj = new Date(tetString + "T00:00:00");
     if (now > tetDateObj) {
         var nextYear = year + 1;
@@ -175,7 +194,6 @@ if (ua.includes("Locket")) {
     var daysToTet = Math.ceil((tetDateObj - now) / (1000 * 60 * 60 * 24));
     var tetCountdownCaption = (daysToTet === 0) ? "Hôm nay là Mùng 1 Tết! 🎉" : (daysToTet === 1) ? "Ngày mai là Mùng 1 Tết rồi!" : "Còn " + daysToTet + " ngày nữa là Tết!";
     
-    // Tính Trung Thu
     var trungThuDateObj = new Date(trungThuString + "T00:00:00");
     if (now > trungThuDateObj) {
         var nextYear = year + 1;
@@ -185,7 +203,6 @@ if (ua.includes("Locket")) {
     var daysToTrungThu = Math.ceil((trungThuDateObj - now) / (1000 * 60 * 60 * 24));
     var trungThuCaption = (daysToTrungThu === 0) ? "Hôm nay là Trung Thu! 🏮" : "Còn " + daysToTrungThu + " ngày nữa là Trung Thu 🏮";
 
-    // Trạng thái Tết
     var tetDay = new Date(year, tetDateObj.getMonth(), tetDateObj.getDate());
     var diffToday = Math.floor((now - tetDay) / (1000 * 60 * 60 * 24));
     var tetStatusCaption = "Đang cày cuốc kiếm tiền lì xì 🧧";
@@ -194,56 +211,29 @@ if (ua.includes("Locket")) {
     else if (diffToday === 2) tetStatusCaption = "Mùng 3 Tết: Chúc bạn tài lộc dồi dào! 🍀";
 
     // ============================================================
-    // CẤU HÌNH HỆ THỐNG (GIỮ NGUYÊN WIDGET GỐC)
+    // CẤU HÌNH HỆ THỐNG 
     // ============================================================
     Object.assign(obj.entries, {
-        // 1. GOLD & PAYWALL
-        feature_gates: JSON.stringify({ 
-            app_icon_picker: "enabled", 
-            camera_roll: "enabled", 
-            camera_theme: "enabled", 
-            locket_views: "enabled", 
-            long_captions: "enabled", 
-            longer_video: "enabled", 
-            unlimited_friends: "enabled", 
-            priority_support: "enabled", 
-            profile_badge: "enabled", 
-            remove_ads: "enabled", 
-            video: "enabled", 
-            custom_widget_frames: "enabled", 
-            streak_recovery: "enabled",
-            lunar_new_year_app_icon: "enabled",
-            christmas_app_icon: "enabled",
-            halloween_app_icon: "enabled",
-            autumn_app_icon: "enabled"
-        }),
+        feature_gates: JSON.stringify({ app_icon_picker: "enabled", camera_roll: "enabled", camera_theme: "enabled", locket_views: "enabled", long_captions: "enabled", longer_video: "enabled", unlimited_friends: "enabled", priority_support: "enabled", profile_badge: "enabled", remove_ads: "enabled", video: "enabled", custom_widget_frames: "enabled", streak_recovery: "enabled", lunar_new_year_app_icon: "enabled", christmas_app_icon: "enabled", halloween_app_icon: "enabled", autumn_app_icon: "enabled" }),
         upsell_features: JSON.stringify({ app_icon_picker: true, camera_roll: true, camera_theme: true, locket_views: true, remove_ads: true, custom_widget_frames: true }),
         paywall_presentation_config: JSON.stringify({ uid: "paywall_testflight", onboarding: false, after_sent_moment: false, on_foreground: false, interval: 2592000, profile_banner: true }),
         feature_discovery_popup_config: JSON.stringify({ tag: "LOCKET GOLD", tag_gradient: true, tag_style: "gold_gradient", title: "Phước nó sống thế đấy 😎", feature_set: [ { title: "Chúc bạn có những khoảnh khắc thật đẹp ✨", body: "Hãy tận hưởng Locket Gold của bạn 💛", imageURL: "https://i.ibb.co/SwvxCVK2/image.png" } ], primary_button_title: "Đã hiểu", campaign: "locket_gold_welcome_v3", start_at: "2020-01-01T00:00:00", end_at: "2099-12-31T23:59:59", use_local_time_zone: true }),
         android_subscribe_gold_button_enabled: "false", profile_badge_visible: "true", lunar_new_year_app_icon_enabled: "true",
         app_icon_picker_enabled: "true", custom_app_icon_enabled: "true",
         settings_instagram_url: "https://www.instagram.com/aka_phw2812/", settings_facebook_url: "https://www.facebook.com/nvp2812",
-
-        // 2. CHẶN QUẢNG CÁO & TRACKING
         history_ads_mode: "off", history_ads_prefetch_count: "0", history_ads_prefetch_immediate: "false", history_ads_prefetch_reroute: "false", history_ads_dynamic_insertion: "false", history_ads_refresh_prefetch_on_foreground: "false", history_ads_floor_price: "0", history_ads_floor_price_att: "0", history_ad_log_displayed_on_background: "false", history_ads_debug_menu: "false", sentry_sample_rate: "0", sentry_network_tracing: "false", sentry_performance_tracking: "false", sentry_trace_sample_rate: "0", sentry_profiles_sample_rate: "0",
-
-        // 3. CAMERA, VIDEO, FILTERS (NÂNG CẤP 60S)
         camera: JSON.stringify({ gold_max_duration: 60.0, goldMaxDuration: 60.0, max_duration: 60.0, maxDuration: 60.0, ultra_wide: true, ultraWide: true, volume_button: true, volumeButton: true, flash_button: true, telephoto: true, srgb: true, lanczos: true, quality_mbps: 1.5, qualityMbps: 1.5 }),
         camera_roll: JSON.stringify({ gold_max_duration: 60.0, goldMaxDuration: 60.0, video_max_duration: 60.0, videoMaxDuration: 60.0, max_duration: 60.0, maxDuration: 60.0, trim_max_duration: 60.0, trimMaxDuration: 60.0, camera_roll_max_duration: 60.0, quality_mbps: 1.5, qualityMbps: 1.5, flash_button: true }),
         live_photos: JSON.stringify({ capture: true, viewing: true, catch_up: true, widget_looping_mode: "never" }),
         camera_filter_config: JSON.stringify({ allows_custom_filters: true, show_filter_button: true, sheet_enabled: true, open_sheet_immediately: true, sheet_filters: [ { title: { en: "Goofy" }, filter_ids: ["okay_wig", "influencer", "looks_maxxing", "toothless", "bye_brows"] }, { title: { en: "Looks" }, filter_ids: ["bowling_ball", "blonde_bleached", "beard", "bob_cut", "buns", "tatted", "mohawk", "braces", "bye_brows"] }, { title: { en: "Celebrate" }, filter_ids: ["slimed", "princess", "disco_lights", "cash_money", "happy_birthday"] }, { title: { en: "Cute" }, filter_ids: ["cutesy", "sticker_face", "flower_crown", "love_bug"] }, { title: { en: "Costumes" }, filter_ids: ["wedding", "cowboy_cowgirl", "giraffe", "clown"] }, { title: { en: "Holidays" }, filter_ids: ["easter_bunney_cutout", "easter_chick_cutout", "bearded", "leprechaun", "lucky_face", "sweet_hearts", "elf_cutout", "santa_cutout", "frosty"] } ], picker_filters: [ "okay_wig", "influencer", "looks_maxxing", "toothless", "bye_brows", "bowling_ball", "blonde_bleached", "beard", "bob_cut", "buns", "tatted", "mohawk", "braces", "slimed", "princess", "disco_lights", "cash_money", "happy_birthday", "cutesy", "sticker_face", "flower_crown", "love_bug", "wedding", "cowboy_cowgirl", "giraffe", "clown", "easter_bunney_cutout", "easter_chick_cutout", "bearded", "leprechaun", "lucky_face", "sweet_hearts", "elf_cutout", "santa_cutout", "frosty" ] }),
         camera_roll_preview_enabled: "true", camera_roll_video_enabled: "true", camera_roll_video_upload_enabled: "true", internal_camera_roll_video_upload_enabled: "true", longer_camera_roll_videos_enabled: "true", camera_roll_video_max_duration: "60.0", camera_roll_max_duration: "60.0", camera_roll_duration: "60.0", max_video_duration: "60.0", video_max_duration: "60.0", video_trim_max_duration: "60.0", trim_max_duration: "60.0", gold_max_duration: "60.0", goldMaxDuration: "60.0", video_quality_mbps: "1.5", video_sound_enabled: "true", microphone_enabled: "true", camera_microphone_enabled: "true", audio_session_deactivation_enabled: "true", zoom_enabled: "true", upload_main: "false", upload_main_image_quality: "1.0", upload_main_image_size: "1440", upload_thumbnail_image_quality: "1.0", upload_thumbnail_image_size: "1020",
-
-        // 4. BẠN BÈ
         max_friends_count: "999999", friend_limit_mode: "0", soft_friend_limit_threshold_count: "999999", show_friend_limit_on_cam: "false", signup_max_friends_count: "999999", celebrity_inbox_limit: "999999", friend_limit_geo_override: JSON.stringify({ experiments: {}, area_code_overrides: {} }),
         friends_sheet_locket_count_config: JSON.stringify({ items: [ { threshold: 0, icon_name: "heart" }, { threshold: 1, icon_name: "heart.fill" }, { threshold: 10, emoji: "🤍" }, { threshold: 100, emoji: "💛" }, { threshold: 500, emoji: "❤️‍🔥" }, { threshold: 1000, emoji: "🌟🫶🌟" }, { threshold: 2000, emoji: "✨💟✨" }, { threshold: 5000, emoji: "⚡️😵‍💫⚡" }, { threshold: 10000, emoji: "✨⚡️😱⚡✨" } ] }),
         friend_locket_count_config: JSON.stringify({ items: [ { threshold: 0, icon_name: "heart" }, { threshold: 1, icon_name: "heart.fill" }, { threshold: 10, emoji: "🤍" }, { threshold: 100, emoji: "💛" }, { threshold: 500, emoji: "❤️‍🔥" }, { threshold: 1000, emoji: "✨💗✨" }, { threshold: 2000, emoji: "✨️⭐️✨" }, { threshold: 5000, emoji: "✨💎✨" }, { threshold: 10000, emoji: "✨🔐💛✨" } ] }),
         new_friends_monitoring_enabled: "true", improved_friend_suggestions: "true", show_friend_suggestions_by_default: "true", emoji_friend_suggestions: "true", prompt_contact_permissions_on_search: "true", populate_phone_numbers_from_suggest_friends: "true", hide_friends_enabled: "true", hide_invite_links: "false", hide_skip_contacts: "true", show_all_contacts: "true", show_invite_suggestions: "true", show_no_friends_bottom_sheet: "false", signup_allow_skip_add_friends: "true",
-
-        // 5. MOMENTS & CHAT
         moment_views_enabled: "true", moment_views_v2: "true", record_moment_views: "true", notify_moment_views: "true", get_moment_views_as_cloud_function: "true", moment_reactions_v2: "true", chat_reactions_enabled: "true", conversation_reactions: "true", typing_indicators_enabled: "true", unsend_message_enabled: "true", reply_prototype_enabled: "true", messages_integration: "true", conversations_enabled: "true", fetch_moments_in_conversation: "true", hide_chat_button: "false", groups_enabled: "true", send_to_self_only_mode: "always_enabled", time_travel_rewind_v2_enabled: "true", calendar_delete_moment_enabled: "true", calendar_rewind_enabled: "false", locket_yearbook_story_sharing_encouraged: "true", rollcall_enabled: "true", rollcall_comment_actions: "true", rollcall_profile_button: "true", rollcall_prompt_export_after_share: "true", rollcall_confirm_skip_tagging: "false", rollcall_tap_to_tag_enabled: "false",
-
-        // 6. WIDGET, THÔNG BÁO & GIAO DIỆN (GIỮ NGUYÊN WIDGET GỐC)
+        
+        // PHẦN WIDGET - ĐÃ ĐƯỢC CẬP NHẬT XOAY VÒNG ẢNH CỦA MÀY
         widget_frame_event_max_images: "5", 
         android_widget_frame_event_enabled: "true", 
         widget_badge_enabled: "true", 
@@ -251,17 +241,23 @@ if (ua.includes("Locket")) {
         widget_stale_state_enabled: "false", 
         widget_last_sent_indicator: "false", 
         widget_sync_token_reload_mode: "clearTokenNever",
-        widget_frame_event: JSON.stringify({ uid: "midautumn_2026", url: "https://i.ibb.co/RTm5P1n9/kitty-1.png", use_local_time_zone: true, placement: "below", start_at: "2020-01-01T00:00:00", end_at: "2099-12-31T23:59:59" }),
+        widget_frame_event: JSON.stringify({ 
+            uid: "hello_kitty_rotation_" + todayWidgetIndex, 
+            url: selectedWidgetUrl, 
+            use_local_time_zone: true, 
+            placement: "below", 
+            start_at: "2020-01-01T00:00:00", 
+            end_at: "2099-12-31T23:59:59" 
+        }),
+
         live_activity_onboarding: "true", live_activity_onboarding_variant: "friending", register_live_activity_push_to_start_token: "true", live_activity_remove_stale_start_token: "true", notification_preferences_live_activities: "true", notification_preferences: "true", notification_reply_body_visible: "true", prompt_notification_permissions_after_friending: "true", activity_bar_enabled: "true", journal_activity_bar_enabled: "true",
         journal_settings: JSON.stringify({ debug_menu_enabled: false, focus_animation: true, compact_header: true, friends_button: true, reverse_scroll_direction: false, streak_visualization: true, streak_visualization_style: "gradient", streak_header_minimum_count: 0, streak_visualization_minimum_count: 2, overlay_indicators: { location: true, music: true, static_content: true, weather: true } }),
         qr_code_config: JSON.stringify({ profile_enabled: true, scanning_enabled: true }), custom_profile_pics: "true", profile_menu_v2_enabled: "true",
-
-        // 7. HỆ THỐNG & CACHE
         cdn_domain_replacements: JSON.stringify({ "firebasestorage.googleapis.com": "cdn.locketcamera.com" }), cdn_domain_replacements_video: "true", storage_bucket: "gs://locket-img", storage_bucket_video: "gs://locket-video", image_cache_max_age_sec: "157680000", image_cache_max_size: "400000000", history_cache_age_days: "1000", user_cache_max_age_sec: "691200", friends_cache_max_age_sec: "2592000", image_fetch_cache: "true", image_cache_use_shared: "true", use_doc_dir_for_image_cache: "true", efficient_history_cache_invalidation: "true", timestamp_based_history_fetches: "true", get_latest_moment_v2: "true", fetch_users_from_cloud_function: "true", refresh_interval: "60", firestore_refresh_v2: "true", firestore_refresh_v3: "true", keychain_access_retries: "true", blocked_users_cached_sync_enabled: "true", beta_features_enabled: "true", join_testflight_enabled: "true", safety_center: "true", help_center: "true", support_v2: "true", privacy_choices_setting: "true", request_att_permission: "true", invite_link_preview_variant: "4", share_history_config: JSON.stringify({ prompt_enabled: false, fetching_enabled: true }), share_history_prompt_enabled: "false", use_thumbnails_for_sharing: "true", use_thumbnails_in_timeline: "true", persist_onboarding_step: "true", onboarding_contact_permission_step: "true"
     });
 
     // ============================================================
-    // 8. OVERLAY & CUSTOM CAPTIONS (FULL BỘ)
+    // 8. OVERLAY & CUSTOM CAPTIONS
     // ============================================================
     Object.assign(obj.entries, {
         overlay_navigator_enabled: "true",
@@ -284,6 +280,19 @@ if (ua.includes("Locket")) {
                     { overlay_id: "caption:tet_countdown", source: "remote", caption: { background: { colors: ["#DA251D", "#FFCD00"] }, icon: { data: "🧨", type: "emoji" }, max_lines: 1, text: tetCountdownCaption, text_color: "#FFFFFF", type: "static_content" } },
                     { overlay_id: "caption:trung_thu_countdown", source: "remote", caption: { background: { colors: ["#FFA500", "#FFD700"] }, icon: { data: "🏮", type: "emoji" }, max_lines: 1, text: trungThuCaption, text_color: "#5D3A00", type: "static_content" } },
                     { overlay_id: "caption:tet_status", source: "remote", caption: { background: { colors: ["#EC407A", "#F8BBD0"] }, icon: { data: "🧧", type: "emoji" }, max_lines: 1, text: tetStatusCaption, text_color: "#8C1938", type: "static_content" } }
+                ]
+            },
+            {
+                section: "🎨 Trend TikTok & Xéo Xắt 🔥",
+                items: [
+                    { overlay_id: "caption:tiktok_hoi", source: "remote", caption: { background: { colors: ["#FF0000", "#8B0000"] }, icon: { data: "💢", type: "emoji" }, max_lines: 1, text: "hòi", text_color: "#FFFFFF", type: "static_content" } },
+                    { overlay_id: "caption:tiktok_cut_not", source: "remote", caption: { background: { colors: ["#8E2DE2", "#000000"] }, icon: { data: "👋", type: "emoji" }, max_lines: 1, text: "cút nốt", text_color: "#FFFFFF", type: "static_content" } },
+                    { overlay_id: "caption:tiktok_anh_la_con_nguoi", source: "remote", caption: { background: { colors: ["#FF758C", "#FF7EB3"] }, icon: { data: "🗣️", type: "emoji" }, max_lines: 2, text: "anh là con người, em cũng là con người, anh nói như thế em tự hiểu", text_color: "#FFFFFF", type: "static_content" } },
+                    { overlay_id: "caption:tiktok_the_nao_lai_hay", source: "remote", caption: { background: { colors: ["#11998E", "#38EF7D"] }, icon: { data: "🤔", type: "emoji" }, max_lines: 1, text: "thế nào lại hay", text_color: "#FFFFFF", type: "static_content" } },
+                    { overlay_id: "caption:tiktok_the_nao_lai_dot", source: "remote", caption: { background: { colors: ["#232526", "#414345"] }, icon: { data: "🤡", type: "emoji" }, max_lines: 1, text: "thế nào lại dốt", text_color: "#FFFFFF", type: "static_content" } },
+                    { overlay_id: "caption:tiktok_the_nao_lai_ngon", source: "remote", caption: { background: { colors: ["#F2994A", "#F2C94C"] }, icon: { data: "😋", type: "emoji" }, max_lines: 1, text: "thế nào lại ngon", text_color: "#FFFFFF", type: "static_content" } },
+                    { overlay_id: "caption:tiktok_da_manh_roi", source: "remote", caption: { background: { colors: ["#00B4DB", "#0083B0"] }, icon: { data: "💪", type: "emoji" }, max_lines: 1, text: "đã mạnh rồi còn gì", text_color: "#FFFFFF", type: "static_content" } },
+                    { overlay_id: "caption:tiktok_manh_thi", source: "remote", caption: { background: { colors: ["#FC466B", "#3F5EFB"] }, icon: { data: "⚡", type: "emoji" }, max_lines: 1, text: "mạnh thí", text_color: "#FFFFFF", type: "static_content" } }
                 ]
             },
             {

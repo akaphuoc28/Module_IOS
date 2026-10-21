@@ -380,7 +380,14 @@ if (ua.includes("Locket")) {
             {
                 section: "🎨 Decorative by akaphuoc28",
                 items: [
-                    { overlay_id: "caption:akaphuoc28", source: "remote", caption: { background: { colors: ["#B8E7FF", "#A8F5D0", "#DCCBFF"] }, icon: { data: "tortoise.fill", type: "sf_symbol", color: "#183153" }, max_lines: 1, text: "akaphuoc28", text_color: "#183153", type: "static_content" } }
+                    { overlay_id: "caption:akaphuoc28", source: "remote", caption: { background: { colors: ["#B8E7FF", "#A8F5D0", "#DCCBFF"] }, icon: { data: "tortoise.fill", type: "sf_symbol", color: "#183153" }, max_lines: 1, text: "akaphuoc28", text_color: "#183153", type: "static_content" } },
+                    { overlay_id: "caption:toxic_hai_huoc_dang_cap", source: "remote", caption: { background: { colors: ["#0F0C29", "#302B63", "#24243E"] }, icon: { data: "😏", type: "emoji" }, max_lines: 1, text: "Xin lỗi vì lúc nào cũng hài hước và đẳng cấp, tôi cũng đéo biết mình bị làm sao nữa", text_color: "#FFFFFFE6", type: "static_content" } },
+                    { overlay_id: "caption:qua_kho_quen", source: "remote", caption: { background: { colors: ["#232526", "#414345", "#6B6B6B"] }, icon: { data: "💅", type: "emoji" }, max_lines: 1, text: "Xin lỗi vì quá khó quên, tôi cũng đéo muốn thế", text_color: "#FFFFFFE6", type: "static_content" } },
+                    { overlay_id: "caption:bot_dang_cap_hoa_dong", source: "remote", caption: { background: { colors: ["#0F0C29", "#302B63", "#24243E"] }, icon: { data: "💎", type: "emoji" }, max_lines: 1, text: "Ước gì tao bớt đẳng cấp một chút để sống hòa đồng thì tốt biết bao", text_color: "#FFD700E6", type: "static_content" } },
+                    { overlay_id: "caption:dang_cap_toi_cung_the", source: "remote", caption: { background: { colors: ["#B8860B", "#1A1A1A"] }, icon: { data: "👑", type: "emoji" }, max_lines: 1, text: "Bạn bị đẳng cấp? Đừng lo tôi cũng thế", text_color: "#FFD700E6", type: "static_content" } },
+                    { overlay_id: "caption:dep_trai_toi_cung_the", source: "remote", caption: { background: { colors: ["#FC5C7D", "#6A82FB"] }, icon: { data: "😎", type: "emoji" }, max_lines: 1, text: "Bạn bị đẹp trai? Đừng lo tôi cũng thế", text_color: "#FFFFFFE6", type: "static_content" } },
+                    { overlay_id: "caption:xau_trai_toi_khong_the", source: "remote", caption: { background: { colors: ["#232526", "#414345"] }, icon: { data: "💅", type: "emoji" }, max_lines: 1, text: "Bạn bị xấu trai? Đừng lo tôi không như thế", text_color: "#FFFFFFE6", type: "static_content" } }
+                                    
                 ]
             },
             {

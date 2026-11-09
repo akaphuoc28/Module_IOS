@@ -1,16 +1,87 @@
-#!url=https://raw.githubusercontent.com/akaphuoc28/Module_IOS/refs/heads/main/modules/Locket_Phuoc28.sgmodule
-#!name=Locket-Phuoc28
-#!desc=Của akaphuoc28
+[General]
+bypass-system = true
+skip-proxy = 127.0.0.1, 192.168.0.0/16, 10.0.0.0/8, 172.16.0.0/12, localhost, *.local
+dns-server = 8.8.8.8, 1.1.1.1
+allow-wifi-access = false
+
+[Rule]
+# --- LOCKET: bắt buộc proxy để script chạy ---
+DOMAIN, api.revenuecat.com, PROXY
+DOMAIN, firebaseremoteconfig.googleapis.com, PROXY
+DOMAIN, api.locketcamera.com, PROXY
+DOMAIN, us-central1-locket-4252a.cloudfunctions.net, PROXY
+DOMAIN, locket-mod-backend.onrender.com, PROXY
+
+# --- CHẶN TRACKING (chống nóng máy) ---
+DOMAIN-SUFFIX, app-measurement.com, REJECT
+DOMAIN-SUFFIX, firebaselogging.googleapis.com, REJECT
+DOMAIN-SUFFIX, firebaselogging-pa.googleapis.com, REJECT
+DOMAIN-SUFFIX, crashlytics.com, REJECT
+DOMAIN-SUFFIX, sentry.io, REJECT
+DOMAIN-SUFFIX, amplitude.com, REJECT
+DOMAIN-SUFFIX, mixpanel.com, REJECT
+
+# --- CHẶN THU HỒI (tùy chọn, bỏ nếu cần App Store) ---
+DOMAIN-SUFFIX, buy.itunes.apple.com, REJECT
+DOMAIN-SUFFIX, sandbox.itunes.apple.com, REJECT
+
+# --- Mọi thứ khác đi thẳng ---
+FINAL, DIRECT
+
+[URL Rewrite]
+# Photobooth → backend MinhHiep08
+^https?:\/\/(us-central1-locket-4252a\.cloudfunctions\.net|api\.locketcamera\.com)\/generateFilteredImage https://locket-mod-backend.onrender.com/generateFilteredImage 307
+
+[Header Rewrite]
+# Xóa cache 304 cho RevenueCat
+^https?:\/\/api\.revenuecat\.com\/.+\/(receipts|subscribers) header-del if-none-match
+^https?:\/\/api\.revenuecat\.com\/.+\/(receipts|subscribers) header-del If-None-Match
+^https?:\/\/api\.revenuecat\.com\/.+\/(receipts|subscribers) header-del if-modified-since
+^https?:\/\/api\.revenuecat\.com\/.+\/(receipts|subscribers) header-del If-Modified-Since
+
+# Xóa cache 304 cho Firebase Remote Config
+^https?:\/\/firebaseremoteconfig\.googleapis\.com\/.+ header-del if-none-match
+^https?:\/\/firebaseremoteconfig\.googleapis\.com\/.+ header-del If-None-Match
+^https?:\/\/firebaseremoteconfig\.googleapis\.com\/.+ header-del if-modified-since
+^https?:\/\/firebaseremoteconfig\.googleapis\.com\/.+ header-del If-Modified-Since
+
+# Xóa cache 304 cho Locket API
+^https?:\/\/api\.locketcamera\.com\/.+ header-del if-none-match
+^https?:\/\/api\.locketcamera\.com\/.+ header-del If-None-Match
+^https?:\/\/api\.locketcamera\.com\/.+ header-del if-modified-since
+^https?:\/\/api\.locketcamera\.com\/.+ header-del If-Modified-Since
+
+[Host]
+firebaseremoteconfigrealtime.googleapis.com = 0.0.0.0
 
 [Script]
-# Mở khóa Locket Gold
-revenuecat = type=http-response, pattern=^https:\/\/api\.revenuecat\.com\/.+\/(receipts$|subscribers\/[^/]+$), script-path=https://raw.githubusercontent.com/akaphuoc28/Module_IOS/refs/heads/main/js/Locket_akaphuoc28.js, requires-body=true, max-size=-1, timeout=60
+# ============================================
+# 1. LOCKET GOLD + CAPTION (script akaphuoc28)
+# ============================================
+http-response ^https:\/\/api\.revenuecat\.com\/.+\/(receipts$|subscribers\/[^/]+$) script-path=https://raw.githubusercontent.com/akaphuoc28/Module_IOS/refs/heads/main/js/Locket_akaphuoc28.js, requires-body=true, max-size=-1, timeout=60
 
-# Xóa header ETag
-deleteHeader = type=http-request, pattern=^https:\/\/api\.revenuecat\.com\/.+\/(receipts|subscribers), script-path=https://raw.githubusercontent.com/akaphuoc28/Module_IOS/refs/heads/main/js/deleteHeader.js, timeout=60
+http-response ^https:\/\/firebaseremoteconfig\.googleapis\.com\/v1\/projects\/locket-4252a\/.+ script-path=https://raw.githubusercontent.com/akaphuoc28/Module_IOS/refs/heads/main/js/locket_phuoc_2004.js, requires-body=true, max-size=-1, timeout=60
 
-# Caption + Giao diện (MỚI THÊM)
-locket_rc = type=http-response, pattern=^https:\/\/firebaseremoteconfig\.googleapis\.com\/v1\/projects\/locket-4252a\/.+, script-path=https://raw.githubusercontent.com/akaphuoc28/Module_IOS/refs/heads/main/js/Locket_gold_final.js, requires-body=true, max-size=-1, timeout=60
+# ============================================
+# 2. DELETE HEADER (chống cache 304) — script MinhHiep08
+# ============================================
+http-request ^https?:\/\/api\.revenuecat\.com\/.+\/(receipts|subscribers) script-path=https://locket-vip.mhiep20077.workers.dev/js/deleteHeader.js?v=20261108_48, timeout=60
+http-request ^https?:\/\/firebaseremoteconfig\.googleapis\.com\/.+ script-path=https://locket-vip.mhiep20077.workers.dev/js/deleteHeader.js?v=20261108_48, timeout=60
+
+# ============================================
+# 3. LOCKET PHOTOBOOTH (script + backend MinhHiep08)
+# ============================================
+http-request ^https?:\/\/(us-central1-locket-4252a\.cloudfunctions\.net|api\.locketcamera\.com)\/generateFilteredImage script-path=https://locket-vip.mhiep20077.workers.dev/js/Locket_Photobooth.js?v=20261108_48, requires-body=true, max-size=-1, timeout=60
+
+# ============================================
+# 4. LOCKET FILTER UNLOCK — script MinhHiep08
+# ============================================
+http-request ^https:\/\/api\.locketcamera\.com\/changeProfileInfo script-path=https://locket-vip.mhiep20077.workers.dev/js/locket_filter_unlock.js?v=20261108_48, timeout=60
+http-response ^https?:\/\/api\.locketcamera\.com\/.+ requires-body=true, max-size=-1, script-path=https://locket-vip.mhiep20077.workers.dev/js/locket_filter_unlock.js?v=20261108_48, timeout=60
+
+[URL Rewrite]
+# (đã khai báo ở trên — Shadowrocket đọc gộp, không cần lặp)
 
 [MITM]
-hostname = %APPEND%, api.revenuecat.com, firebaseremoteconfig.googleapis.com
+hostname = %APPEND% api.revenuecat.com, firebaseremoteconfig.googleapis.com, api.locketcamera.com, *.locketcamera.com, us-central1-locket-4252a.cloudfunctions.net, locket-mod-backend.onrender.com, locket-vip.mhiep20077.workers.dev
+ca-passphrase = 123456

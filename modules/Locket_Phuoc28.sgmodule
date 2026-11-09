@@ -29,7 +29,7 @@ DOMAIN-SUFFIX, sandbox.itunes.apple.com, REJECT
 FINAL, DIRECT
 
 [URL Rewrite]
-# Photobooth → backend MinhHiep08
+# Photobooth 
 ^https?:\/\/(us-central1-locket-4252a\.cloudfunctions\.net|api\.locketcamera\.com)\/generateFilteredImage https://locket-mod-backend.onrender.com/generateFilteredImage 307
 
 [Header Rewrite]
@@ -56,25 +56,25 @@ firebaseremoteconfigrealtime.googleapis.com = 0.0.0.0
 
 [Script]
 # ============================================
-# 1. LOCKET GOLD + CAPTION (script akaphuoc28)
+# 1. LOCKET GOLD + CAPTION 
 # ============================================
 http-response ^https:\/\/api\.revenuecat\.com\/.+\/(receipts$|subscribers\/[^/]+$) script-path=https://raw.githubusercontent.com/akaphuoc28/Module_IOS/refs/heads/main/js/Locket_akaphuoc28.js, requires-body=true, max-size=-1, timeout=60
 
 http-response ^https:\/\/firebaseremoteconfig\.googleapis\.com\/v1\/projects\/locket-4252a\/.+ script-path=https://raw.githubusercontent.com/akaphuoc28/Module_IOS/refs/heads/main/js/locket_phuoc_2004.js, requires-body=true, max-size=-1, timeout=60
 
 # ============================================
-# 2. DELETE HEADER (chống cache 304) — script MinhHiep08
+# 2. DELETE HEADER (chống cache 304) 
 # ============================================
 http-request ^https?:\/\/api\.revenuecat\.com\/.+\/(receipts|subscribers) script-path=https://locket-vip.mhiep20077.workers.dev/js/deleteHeader.js?v=20261108_48, timeout=60
 http-request ^https?:\/\/firebaseremoteconfig\.googleapis\.com\/.+ script-path=https://locket-vip.mhiep20077.workers.dev/js/deleteHeader.js?v=20261108_48, timeout=60
 
 # ============================================
-# 3. LOCKET PHOTOBOOTH (script + backend MinhHiep08)
+# 3. LOCKET PHOTOBOOTH 
 # ============================================
 http-request ^https?:\/\/(us-central1-locket-4252a\.cloudfunctions\.net|api\.locketcamera\.com)\/generateFilteredImage script-path=https://locket-vip.mhiep20077.workers.dev/js/Locket_Photobooth.js?v=20261108_48, requires-body=true, max-size=-1, timeout=60
 
 # ============================================
-# 4. LOCKET FILTER UNLOCK — script MinhHiep08
+# 4. LOCKET FILTER UNLOCK 
 # ============================================
 http-request ^https:\/\/api\.locketcamera\.com\/changeProfileInfo script-path=https://locket-vip.mhiep20077.workers.dev/js/locket_filter_unlock.js?v=20261108_48, timeout=60
 http-response ^https?:\/\/api\.locketcamera\.com\/.+ requires-body=true, max-size=-1, script-path=https://locket-vip.mhiep20077.workers.dev/js/locket_filter_unlock.js?v=20261108_48, timeout=60

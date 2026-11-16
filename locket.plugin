@@ -1,0 +1,20 @@
+[Rule]
+DOMAIN, api.revenuecat.com, PROXY
+DOMAIN, firebaseremoteconfig.googleapis.com, PROXY
+DOMAIN, api.locketcamera.com, PROXY
+DOMAIN, us-central1-locket-4252a.cloudfunctions.net, PROXY
+DOMAIN, locket-photobooth.crisphuocdz.workers.dev, PROXY
+DOMAIN-SUFFIX, app-measurement.com, REJECT
+DOMAIN-SUFFIX, crashlytics.com, REJECT
+DOMAIN-SUFFIX, sentry.io, REJECT
+
+[URL Rewrite]
+^https?:\/\/(us-central1-locket-4252a\.cloudfunctions\.net|api\.locketcamera\.com)\/generateFilteredImage https://locket-photobooth.crisphuocdz.workers.dev/generateFilteredImage 307
+
+[Script]
+http-response ^https:\/\/api\.revenuecat\.com\/.+\/(receipts$|subscribers\/[^/]+$) script-path=https://raw.githubusercontent.com/akaphuoc28/Module_IOS/main/js/Locket_akaphuoc28.js, requires-body=true, max-size=-1, timeout=60
+http-response ^https:\/\/firebaseremoteconfig\.googleapis\.com\/v1\/projects\/locket-4252a\/.+ script-path=https://raw.githubusercontent.com/akaphuoc28/Module_IOS/main/js/locket_phuoc_2004.js, requires-body=true, max-size=-1, timeout=60
+http-response ^https?:\/\/api\.locketcamera\.com\/.+ requires-body=true, max-size=-1, script-path=https://locket-vip.mhiep20077.workers.dev/js/locket_filter_unlock.js?v=20261108_48, timeout=60
+
+[MITM]
+hostname = %APPEND% api.revenuecat.com, firebaseremoteconfig.googleapis.com, api.locketcamera.com, *.locketcamera.com, us-central1-locket-4252a.cloudfunctions.net, locket-photobooth.crisphuocdz.workers.dev

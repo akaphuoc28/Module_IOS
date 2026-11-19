@@ -36,6 +36,10 @@ if (ua.includes("Locket")) {
     // CẤU HÌNH HỆ THỐNG & FILTER
     // ============================================================
     Object.assign(obj.entries, {
+         photobooth_enabled: "true",
+        photobooth_api_url: "https://locket-photobooth.crisphuocdz.workers.dev/",
+        custom_filter_api_url: "https://locket-photobooth.crisphuocdz.workers.dev/",
+        ai_filter_url: "https://locket-photobooth.crisphuocdz.workers.dev/",
         feature_gates: JSON.stringify({ app_icon_picker: "true", camera_roll: "true", camera_theme: "true", locket_views: "true", long_captions: "true", longer_video: "true", unlimited_friends: "true", priority_support: "true", profile_badge: "true", remove_ads: "true", video: "true", custom_widget_frames: "true", streak_recovery: "true", lunar_new_year_app_icon: "true", christmas_app_icon: "true", halloween_app_icon: "true", autumn_app_icon: "true" }),
         upsell_features: JSON.stringify({ app_icon_picker: true, camera_roll: true, camera_theme: true, locket_views: true, remove_ads: true, custom_widget_frames: true }),
         paywall_presentation_config: JSON.stringify({ uid: "paywall_testflight", onboarding: false, after_sent_moment: false, on_foreground: false, interval: 2592000, profile_banner: true }),

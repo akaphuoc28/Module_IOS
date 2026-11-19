@@ -1,0 +1,35 @@
+#!name=Locket Gold + Photobooth (V3 - Safe)
+#!desc=Kích hoạt Gold và AI Photobooth an toàn
+
+[General]
+bypass-system = true
+skip-proxy = 127.0.0.1, 192.168.0.0/16, 10.0.0.0/8, 172.16.0.0/12, localhost, *.local
+dns-server = system, 1.1.1.1, 8.8.8.8
+
+[Rule]
+# Các rule này giúp đảm bảo lưu lượng đi đúng hướng
+DOMAIN-SUFFIX,revenuecat.com,DIRECT
+DOMAIN-SUFFIX,googleapis.com,DIRECT
+DOMAIN-SUFFIX,locketcamera.com,DIRECT
+FINAL,DIRECT
+
+[Header Rewrite]
+# Xóa cache triệt để cho RevenueCat
+^https?:\/\/(api|rc-backup)\.revenuecat\.com\/v1\/(subscribers|receipts).* header-del X-RevenueCat-ETag
+^https?:\/\/(api|rc-backup)\.revenuecat\.com\/v1\/(subscribers|receipts).* header-del If-None-Match
+^https?:\/\/(api|rc-backup)\.revenuecat\.com\/v1\/(subscribers|receipts).* header-del If-Modified-Since
+# Xóa cache triệt để cho Firebase Remote Config
+^https?:\/\/.*firebaseremoteconfig.*\.googleapis\.com\/.* header-del If-None-Match
+^https?:\/\/.*firebaseremoteconfig.*\.googleapis\.com\/.* header-del If-Modified-Since
+^https?:\/\/.*firebaseremoteconfig.*\.googleapis\.com\/.* header-del ETag
+
+[Script]
+# 1. Fake mua Gold (RevenueCat) - Giữ nguyên link của bạn
+revenuecat = type=http-response, pattern=^https:\/\/api\.revenuecat\.com\/.+\/(receipts$|subscribers\/[^/]+$), script-path=https://raw.githubusercontent.com/akaphuoc28/Module_IOS/main/js/Locket_akaphuoc28.js, requires-body=true, max-size=-1, timeout=60
+
+# 2. Sửa cấu hình Locket (Nhúng link Worker Photobooth) - Giữ nguyên link của bạn
+locket_rc = type=http-response, pattern=^https?:\/\/.*firebaseremoteconfig.*\.googleapis\.com\/.*, script-path=https://raw.githubusercontent.com/akaphuoc28/Module_IOS/main/js/locket_phuoctochoi.js, requires-body=true, max-size=-1, timeout=60
+
+[MITM]
+enable = true
+hostname = %APPEND% api.revenuecat.com, *.revenuecat.com, firebaseremoteconfig.googleapis.com, *.firebaseremoteconfig.googleapis.com

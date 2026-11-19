@@ -16,9 +16,9 @@ if (ua.includes("Locket")) {
     // CẤU HÌNH KẾT NỐI CLOUDFLARE WORKER (PHOTOBOOTH AI)
     // ============================================================
     obj.entries.photobooth_enabled = "true";
-    obj.entries.photobooth_api_url = "https://locket-photobooth.crisphuocdz.workers.dev/";
-    obj.entries.custom_filter_api_url = "https://locket-photobooth.crisphuocdz.workers.dev/";
-    obj.entries.ai_filter_url = "https://locket-photobooth.crisphuocdz.workers.dev/";
+    obj.entries.photobooth_api_url = "https://locket-photobooth.akaphuoc28.workers.dev/";
+    obj.entries.custom_filter_api_url = "https://locket-photobooth.akaphuoc28.workers.dev/";
+    obj.entries.ai_filter_url = "https://locket-photobooth.akaphuoc28.workers.dev/";
 
     // ============================================================
     // XỬ LÝ THỜI GIAN & LOGIC TỰ ĐỘNG

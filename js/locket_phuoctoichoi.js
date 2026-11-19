@@ -1,6 +1,7 @@
 // ============================================================
 // Locket Remote Config Rewrite (FULL STATIC - NO BATTERY DRAIN)
 // Base by @akaphuoc28 | Upgrade: Full Filter, Full Tĩnh, Full Option
+// Custom: Đã chèn khung Photobooth One Piece
 // ============================================================
 
 var ua = $request.headers["User-Agent"] || $request.headers["user-agent"] || "";
@@ -48,7 +49,7 @@ if (ua.includes("Locket")) {
         camera_roll: JSON.stringify({ gold_max_duration: 60.0, goldMaxDuration: 60.0, video_max_duration: 60.0, videoMaxDuration: 60.0, max_duration: 60.0, maxDuration: 60.0, trim_max_duration: 60.0, trimMaxDuration: 60.0, camera_roll_max_duration: 60.0, quality_mbps: 1.5, qualityMbps: 1.5, flash_button: true }),
         live_photos: JSON.stringify({ capture: true, viewing: true, catch_up: true, widget_looping_mode: "never" }),
         
-                camera_roll_preview_enabled: "true", camera_roll_video_enabled: "true", camera_roll_video_upload_enabled: "true", internal_camera_roll_video_upload_enabled: "true", longer_camera_roll_videos_enabled: "true", camera_roll_video_max_duration: "60.0", camera_roll_max_duration: "60.0", camera_roll_duration: "60.0", max_video_duration: "60.0", video_max_duration: "60.0", video_trim_max_duration: "60.0", trim_max_duration: "60.0", gold_max_duration: "60.0", goldMaxDuration: "60.0", video_quality_mbps: "1.5", video_sound_enabled: "true", microphone_enabled: "true", camera_microphone_enabled: "true", audio_session_deactivation_enabled: "true", zoom_enabled: "true", upload_main: "false", upload_main_image_quality: "1.0", upload_main_image_size: "1440", upload_thumbnail_image_quality: "1.0", upload_thumbnail_image_size: "1020",
+        camera_roll_preview_enabled: "true", camera_roll_video_enabled: "true", camera_roll_video_upload_enabled: "true", internal_camera_roll_video_upload_enabled: "true", longer_camera_roll_videos_enabled: "true", camera_roll_video_max_duration: "60.0", camera_roll_max_duration: "60.0", camera_roll_duration: "60.0", max_video_duration: "60.0", video_max_duration: "60.0", video_trim_max_duration: "60.0", trim_max_duration: "60.0", gold_max_duration: "60.0", goldMaxDuration: "60.0", video_quality_mbps: "1.5", video_sound_enabled: "true", microphone_enabled: "true", camera_microphone_enabled: "true", audio_session_deactivation_enabled: "true", zoom_enabled: "true", upload_main: "false", upload_main_image_quality: "1.0", upload_main_image_size: "1440", upload_thumbnail_image_quality: "1.0", upload_thumbnail_image_size: "1020",
         
         max_friends_count: "999999", friend_limit_mode: "0", soft_friend_limit_threshold_count: "999999", show_friend_limit_on_cam: "false", signup_max_friends_count: "999999", celebrity_inbox_limit: "999999", friend_limit_geo_override: JSON.stringify({ experiments: {}, area_code_overrides: {} }),
         friends_sheet_locket_count_config: JSON.stringify({ items: [ { threshold: 0, icon_name: "heart" }, { threshold: 1, icon_name: "heart.fill" }, { threshold: 10, emoji: "🤍" }, { threshold: 100, emoji: "💛" }, { threshold: 500, emoji: "❤️‍🔥" }, { threshold: 1000, emoji: "🌟🫶🌟" }, { threshold: 2000, emoji: "✨💟✨" }, { threshold: 5000, emoji: "⚡️😵‍💫⚡" }, { threshold: 10000, emoji: "✨⚡️😱⚡✨" } ] }),
@@ -91,6 +92,29 @@ if (ua.includes("Locket")) {
         music_caption_song_preview_enabled: "true",
         link_caption_link_enabled: "true",
         overlay_items: JSON.stringify([
+            {
+                section: "📸 Khung One Piece Của Tôi",
+                items: [
+                    {
+                        overlay_id: "caption:khung_one_piece",
+                        source: "remote",
+                        alt_text: "Khung One Piece",
+                        caption: {
+                            background: { 
+                                image: { 
+                                    data: "https://i.ibb.co/tMBXZgwM/test.png", 
+                                    type: "image", 
+                                    source: "url" 
+                                }, 
+                                colors: ["#000000", "#000000"] 
+                            },
+                            max_lines: 1, 
+                            text: "", 
+                            type: "static_content"
+                        }
+                    }
+                ]
+            },
             {
                 section: "📸 Khung Ảnh (Test Widget)",
                 items: widgetImages.map(function(imgUrl, index) {

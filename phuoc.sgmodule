@@ -1,0 +1,18 @@
+#!name=Locket Gold + Photobooth
+#!desc=Kích hoạt Gold và kết nối AI Photobooth
+
+[General]
+user-agent = Locket/1.0.0 (iPhone; iOS 18.0; Scale/3.00)
+
+[Script]
+# 1. Fake mua Gold (RevenueCat)
+revenuecat = type=http-response, pattern=^https:\/\/api\.revenuecat\.com\/.+\/(receipts$|subscribers\/[^/]+$), script-path=https://raw.githubusercontent.com/TÊN_GITHUB_CỦA_BẠN/TÊN_REPO/main/Locket_akaphuoc28.js, requires-body=true, max-size=-1, timeout=60
+
+# 2. Xóa Header Cache ETag
+deleteHeader = type=http-request, pattern=^https:\/\/api\.revenuecat\.com\/.+\/(receipts|subscribers), script-path=https://raw.githubusercontent.com/TÊN_GITHUB_CỦA_BẠN/TÊN_REPO/main/deleteHeader.js, timeout=60
+
+# 3. Sửa cấu hình Locket (Nhúng link Worker Photobooth)
+locket_rc = type=http-response, pattern=^https:\/\/firebaseremoteconfig\.googleapis\.com\/v1\/projects\/locket-4252a\/.+, script-path=https://raw.githubusercontent.com/TÊN_GITHUB_CỦA_BẠN/TÊN_REPO/main/locket_phuoctochoi.js, requires-body=true, max-size=-1, timeout=60
+
+[MITM]
+hostname = %APPEND% api.revenuecat.com, firebaseremoteconfig.googleapis.com

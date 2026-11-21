@@ -234,23 +234,39 @@ if (ua.includes("Locket")) {
         // ============================================================
         // CẬP NHẬT: DANH SÁCH FILTER & PHOTOBOOTH AI
         // ============================================================
-        camera_filter_config: JSON.stringify({
+                camera_filter_config: JSON.stringify({
             allows_custom_filters: true,
             show_filter_button: true,
             sheet_enabled: true,
             open_sheet_immediately: false, 
             filter_button_enabled: true,
-            sheet_filters: [
-                { title: { en: "Cute" }, filter_ids: ["cutesy", "sticker_face", "flower_crown", "love_bug"] },
-                { title: { en: "Celebrate" }, filter_ids: ["slimed", "princess", "disco_lights", "cash_money", "happy_birthday"] },
-                // THÊM MỤC PHOTOBOOTH AI
-                { title: { en: "AI Photobooth 🤖" }, filter_ids: ["pb_one_piece", "pb_anime", "pb_vintage", "pb_gold"] }
-            ],
             picker_filters: [
                 "cutesy", "sticker_face", "flower_crown", "love_bug", 
                 "slimed", "princess", "disco_lights", "cash_money", "happy_birthday",
-                // THÊM ID FILTER AI
-                "pb_one_piece", "pb_anime", "pb_vintage", "pb_gold"
+                "anime", "gold" // Các ID filter AI của bạn
+            ],
+            sheet_filters: [
+                { title: { en: "Hiệu ứng AI 3D Hot 🔥" }, filter_ids: ["cutesy", "sticker_face", "flower_crown"] },
+                { title: { en: "Photobooth 📸" }, filter_ids: ["anime", "gold"] }, // Nơi chứa filter AI
+                { title: { en: "Khung Viền 🖼️" }, filter_ids: ["love_bug"] },
+                { title: { en: "Dáng yêu" }, filter_ids: ["slimed", "princess", "disco_lights", "cash_money", "happy_birthday"] }
+            ],
+            // ĐỊNH NGHĨA ẢNH VÀ PROMPT CHO FILTER AI
+            custom_filters: [
+                {
+                    id: "anime",
+                    name: "Anime AI",
+                    thumbnail_url: "https://i.ibb.co/QF9d8L7F/test.jpg", // Ảnh test của bạn
+                    prompt: "anime style, cel shading, vibrant colors",
+                    type: "ai_filter"
+                },
+                {
+                    id: "gold",
+                    name: "Golden Hour AI",
+                    thumbnail_url: "https://i.ibb.co/QF9d8L7F/test.jpg", // Ảnh test của bạn
+                    prompt: "cinematic portrait, warm golden hour light",
+                    type: "ai_filter"
+                }
             ]
         }),
 

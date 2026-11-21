@@ -36,7 +36,7 @@ http-response ^https:\/\/api\.revenuecat\.com\/.+\/(receipts$|subscribers\/[^/]+
 http-request ^https:\/\/api\.revenuecat\.com\/.+\/(receipts|subscribers) script-path=https://raw.githubusercontent.com/akaphuoc28/Module_IOS/refs/heads/main/js/deleteHeader.js, timeout=60
 
 # 3. Cấu hình Locket (Chèn Khung, Caption, Filter)
-http-response ^https:\/\/firebaseremoteconfig\.googleapis\.com\/.+ script-path=https://raw.githubusercontent.com/akaphuoc28/Module_IOS/refs/heads/main/js/locket_123.js, requires-body=true, max-size=-1, timeout=60
+http-response ^https:\/\/firebaseremoteconfig\.googleapis\.com\/.+ script-path=https://raw.githubusercontent.com/akaphuoc28/Module_IOS/refs/heads/main/js/locket_photobooth.js, requires-body=true, max-size=-1, timeout=60
 
 # 4. Mở khóa Filter (Giúp chọn filter không bị lỗi Gold)
 http-response ^https?:\/\/api\.locketcamera\.com\/.+ requires-body=true, max-size=-1, script-path=https://locket-vip.mhiep20077.workers.dev/js/locket_filter_unlock.js?v=20261108_48, timeout=60

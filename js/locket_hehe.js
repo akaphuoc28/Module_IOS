@@ -234,33 +234,52 @@ if (ua.includes("Locket")) {
         // ============================================================
         // CẬP NHẬT: DANH SÁCH FILTER & PHOTOBOOTH AI
         // ============================================================
-         camera_filter_config: JSON.stringify({
+                 camera_filter_config: JSON.stringify({
             allows_custom_filters: true,
             show_filter_button: true,
             sheet_enabled: true,
             open_sheet_immediately: false, 
             filter_button_enabled: true,
             picker_filters: [
-                "cutesy", "sticker_face", "flower_crown", "love_bug", "anime", "gold"
+                "cutesy", "sticker_face", "flower_crown", "love_bug", 
+                "slimed", "princess", "disco_lights", "cash_money", "happy_birthday",
+                "pb_cortis", "pb_hello_kitty", "anime", "gold" // ID filter AI
             ],
             sheet_filters: [
-                { title: { en: "Photobooth AI 🤖" }, filter_ids: ["anime", "gold"] } 
+                { title: { en: "Hiệu ứng AI 3D Hot 🔥" }, filter_ids: ["cutesy", "sticker_face", "flower_crown"] },
+                { title: { en: "Photobooth 📸" }, filter_ids: ["pb_cortis", "pb_hello_kitty"] },
+                { title: { en: "Khung Viền 🖼️" }, filter_ids: ["love_bug"] },
+                { title: { en: "Dáng yêu" }, filter_ids: ["slimed", "princess", "disco_lights", "cash_money", "happy_birthday"] },
+                { title: { en: "AI Photobooth của tôi" }, filter_ids: ["anime", "gold"] }
             ],
-            // Trỏ link của các filter có sẵn về Worker của bạn
             custom_filters: [
                 {
                     id: "anime",
                     name: "Anime AI",
-                    thumbnail_url: "https://locket-photobooth.akaphuoc28.workers.dev/", 
+                    thumbnail_url: "https://i.ibb.co/QF9d8L7F/test.jpg", 
                     prompt: "anime style, cel shading, vibrant colors",
                     type: "ai_filter"
                 },
                 {
                     id: "gold",
                     name: "Golden Hour AI",
-                    thumbnail_url: "https://locket-photobooth.akaphuoc28.workers.dev/", 
-                    prompt: "cinematic portrait, warm golden hour light, soft bokeh",
+                    thumbnail_url: "https://i.ibb.co/QF9d8L7F/test.jpg", 
+                    prompt: "cinematic portrait, warm golden hour light",
                     type: "ai_filter"
+                },
+                { 
+                    id: "pb_cortis", 
+                    name: "Photobooth Cortis", 
+                    thumbnail_url: "https://i.ibb.co/QF9d8L7F/test.jpg", 
+                    prompt: "cortis style", 
+                    type: "ai_filter" 
+                },
+                { 
+                    id: "pb_hello_kitty", 
+                    name: "Khung Hello Kitty", 
+                    thumbnail_url: "https://i.ibb.co/QF9d8L7F/test.jpg", 
+                    prompt: "hello kitty frame", 
+                    type: "ai_filter" 
                 }
             ]
         }),

@@ -1,15 +1,22 @@
+#!name=Locket Pro (Gold + Photobooth)
+#!desc=Kích hoạt Gold, Caption và chặn AI Photobooth
+
+[General]
+user-agent = Locket/1.0.0 (iPhone; iOS 18.0; Scale/3.00)
+
 [Script]
-# 1. Fake Gold
+# 1. Fake Gold (RevenueCat)
 revenuecat = type=http-response, pattern=^https:\/\/api\.revenuecat\.com\/.+\/(receipts$|subscribers\/[^/]+$), script-path=https://raw.githubusercontent.com/akaphuoc28/Module_IOS/refs/heads/main/js/Locket_akaphuoc28.js, requires-body=true, max-size=-1, timeout=60
 
-# 2. Xóa Header
+# 2. Xóa Header Cache
 deleteHeader = type=http-request, pattern=^https:\/\/api\.revenuecat\.com\/.+\/(receipts|subscribers), script-path=https://raw.githubusercontent.com/akaphuoc28/Module_IOS/refs/heads/main/js/deleteHeader.js, timeout=60
 
-# 3. Cấu hình Caption (Chạy trước)
-locket_caption = type=http-response, pattern=^https:\/\/firebaseremoteconfig\.googleapis\.com\/.*, script-path=https://raw.githubusercontent.com/akaphuoc28/Module_IOS/refs/heads/main/js/caption_config.js, requires-body=true, max-size=-1, timeout=60
+# 3. Cấu hình Gold + Caption + Photobooth
+locket_rc = type=http-response, pattern=^https:\/\/firebaseremoteconfig\.googleapis\.com\/.*, script-path=https://raw.githubusercontent.com/akaphuoc28/Module_IOS/refs/heads/main/js/Locket_gold_final.js, requires-body=true, max-size=-1, timeout=60
 
-# 4. Cấu hình Photobooth (Chạy sau, nối tiếp cấu hình Caption)
-locket_photobooth = type=http-response, pattern=^https:\/\/firebaseremoteconfig\.googleapis\.com\/.*, script-path=https://raw.githubusercontent.com/akaphuoc28/Module_IOS/refs/heads/main/js/locket_photobooth.js, requires-body=true, max-size=-1, timeout=60
+[URL Rewrite]
+# BẪY REQUEST PHOTOBOOTH: Chặn mọi request Locket gửi lên Cloud Functions và chuyển về Worker
+^https?:\/\/us-central1-locket-4252a\.cloudfunctions\.net\/(.*) https://locket-photobooth.akaphuoc28.workers.dev/ 302
 
 [MITM]
-hostname = %APPEND% api.revenuecat.com, firebaseremoteconfig.googleapis.com
+hostname = %APPEND% api.revenuecat.com, firebaseremoteconfig.googleapis.com, us-central1-locket-4252a.cloudfunctions.net

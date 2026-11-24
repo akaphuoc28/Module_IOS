@@ -1,6 +1,6 @@
 #!name=Locket VIP (Tự Chủ 100%)
 #!desc=Gold + Caption + Khung One Piece + Photobooth AI (Cloudflare Worker riêng)
-#!author=YOU
+#!author=akaphuoc28
 #!system=ios
 
 [Rule]
@@ -23,23 +23,22 @@ AND,((DOMAIN,firebaseremoteconfig.googleapis.com),(PROTOCOL,UDP),(DEST-PORT,443)
 
 [Script]
 # ==========================================
-# 1. FAKE GOLD (File của bạn)
-# Thay [TÊN_BẠN]/[REPO] bằng link GitHub thật
+# 1. FAKE GOLD (File Locket_akaphuoc28.js)
 # ==========================================
-http-response ^https:\/\/api\.revenuecat\.com\/.+\/(receipts$|subscribers\/[^/]+$) script-path=https://raw.githubusercontent.com/akaphuoc28/Module_IOS/refs/heads/main/js/Locket_akaphuoc28.js, requires-body=true, max-size=-1, timeout=60
+http-response ^https:\/\/api\.revenuecat\.com\/.+\/(receipts$|subscribers\/[^/]+$) script-path=https://raw.githubusercontent.com/akaphuoc28/Module_IOS/main/js/Locket_akaphuoc28.js, requires-body=true, max-size=-1, timeout=60
 
 # ==========================================
-# 2. GIAO DIỆN & CAPTION (File locket_123.js của bạn)
+# 2. GIAO DIỆN & CAPTION (File giao_dien_caption.js)
 # ==========================================
-http-response ^https:\/\/firebaseremoteconfig\.googleapis\.com\/v1\/projects\/locket-4252a\/.+ script-path=https://raw.githubusercontent.com/akaphuoc28/Module_IOS/refs/heads/main/js/giao_dien_caption.js, requires-body=true, max-size=-1, timeout=60
+http-response ^https:\/\/firebaseremoteconfig\.googleapis\.com\/v1\/projects\/locket-4252a\/.+ script-path=https://raw.githubusercontent.com/akaphuoc28/Module_IOS/main/js/giao_dien_caption.js, requires-body=true, max-size=-1, timeout=60
 
 # ==========================================
-# 3. FILTER & PHOTOBOOTH (File filter_photobooth.js của bạn)
+# 3. FILTER & PHOTOBOOTH (File filter_photobooth.js)
 # ==========================================
-http-response ^https:\/\/firebaseremoteconfig\.googleapis\.com\/v1\/projects\/locket-4252a\/.+ script-path=https://raw.githubusercontent.com/akaphuoc28/Module_IOS/refs/heads/main/js/filter_photobooth.js, requires-body=true, max-size=-1, timeout=60
+http-response ^https:\/\/firebaseremoteconfig\.googleapis\.com\/v1\/projects\/locket-4252a\/.+ script-path=https://raw.githubusercontent.com/akaphuoc28/Module_IOS/main/js/filter_photobooth.js, requires-body=true, max-size=-1, timeout=60
 
 # ==========================================
-# 4. XÓA HEADER CACHE (Script gốc của akaphuoc28, an toàn)
+# 4. XÓA HEADER CACHE (File deleteHeader.js)
 # ==========================================
 http-request ^https?:\/\/api\.revenuecat\.com\/.+\/(receipts|subscribers) script-path=https://raw.githubusercontent.com/akaphuoc28/Module_IOS/main/js/deleteHeader.js, timeout=60
 
